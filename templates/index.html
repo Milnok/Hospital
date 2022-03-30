@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <br>
+    <a href="/create/" class="create">Создать запись</a>
+    <br>
+    <table class="table" id="myTable">
+        <tbody>
+        {% for row in table %}
+            <tr>
+                <td>{{ row.doctor }}</td>
+                <td>{{ row.patient }}</td>
+                <td>{{ row.description }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <script type="text/javascript" src="{% static 'js/index.js' %}"></script>
+{% endblock %}

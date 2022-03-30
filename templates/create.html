@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <input type="text" class="doctor" id="doctor" readonly>
+    <input type="text" class="patient" id="patient">
+    <textarea id="description" cols="30" rows="10"></textarea>
+    <button class="update_note" onclick="update()">Создать</button>
+
+    <script type="text/javascript" src="{% static 'js/create.js' %}"></script>
+{% endblock %}
