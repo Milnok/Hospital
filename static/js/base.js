@@ -49,6 +49,5 @@ function logout() {
     });
 }
 
-window.onload = function () {
-    check_login();
-}
+
+check_login();
