@@ -59,9 +59,10 @@ function detail_redirect(data) {
 
 function update_table(response) {
     var c = [];
+    c.push("<tr><th>Имя доктора</th><th>Фамилия доктора</th><th>Имя пациента</th><th>Фамилия пациента</th><th>Комментарии</th></tr>")
     $.each(response, function (i, item) {
-        c.push("<tr><td>" + item.doctor.first_name + ' ' + item.doctor.last_name + "</td>");
-        c.push("<td>" + item.patient.first_name + ' ' + item.patient.last_name + "</td>");
+        c.push("<tr class='t__td'><td>" + item.doctor.first_name + "</td><td>" + item.doctor.last_name + "</td>");
+        c.push("<td>" + item.patient.first_name + "</td><td>" + item.patient.last_name + "</td>");
         c.push("<td>" + item.description + "</td>");
         if (localStorage.logintype === 'Doctor') {
             c.push("<td> <button onclick='" + "update(" + item.id + ")" + "' class='update'>Изменить</button></td>")
@@ -75,7 +76,7 @@ function update_table(response) {
     $('#myTable tbody').html(c.join(""));
 }
 
-window.onload = function (){
+window.onload = function () {
     check_login();
     get_node_list()
 }

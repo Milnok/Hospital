@@ -1,6 +1,6 @@
 function check_login() {
     $.ajax({
-        type: "POST",
+        type: "GET",
         url: '/api/v1/check_login',
         headers: {
             "Authorization": "Token " + localStorage.webtoken
@@ -13,8 +13,8 @@ function check_login() {
             localStorage.login_last = response['login_last']
             localStorage.logintype = response['type']
             document.getElementById('a_username').innerHTML = response['login_first'] + ' ' + response['login_last']
-            document.getElementById('login_page').style.display = 'none'
             document.getElementById('quit').style.display = ''
+            document.getElementById('back_main').style.display = ''
             if (response['type'] === 'Doctor') {
                 document.getElementById('create_note').style.display = ''
             } else {
@@ -26,9 +26,10 @@ function check_login() {
             localStorage.login_first = null
             localStorage.login_last = null
             localStorage.logintype = null
-            document.getElementById('login_page').style.display = ''
             document.getElementById('quit').style.display = 'none'
+            document.getElementById('back_main').style.display = 'none'
             document.getElementById('create_note').style.display = 'none'
+            document.location.href = '/login'
         },
     });
 }
@@ -46,13 +47,11 @@ function logout() {
         success: function (response) {
             localStorage.webtoken = null
             localStorage.login = null
-            document.getElementById('login_page').style.display = ''
             document.getElementById('quit').style.display = 'none'
             document.location.href = '/'
         },
         error: function (response) {
             localStorage.login = response['login']
-            document.getElementById('login_page').style.display = 'none'
             document.getElementById('quit').style.display = ''
         },
     });

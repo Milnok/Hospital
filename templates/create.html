@@ -1,15 +1,33 @@
 {% extends 'base.html' %}
 {% load static %}
-
 {% block content %}
-    doc<input type="text" class="doctor_name" id="doctor_name" readonly>
-    <input type="text" class="doctor_fam" id="doctor_fam" readonly>
+    <table>
+        <tbody>
+            <tr>
+                <th>Доктор:</th>
+                <th><input type="text" class="doctor_name" id="doctor_name" placeholder="Имя" readonly></th>
+                <th><input type="text" class="doctor_fam" id="doctor_fam" placeholder="Фамилия" readonly></th>
+            </tr>
+            <tr>
+                <th>Пациент:</th>
+                <th><input type="text" class="patient_name" id="patient_name" placeholder="Имя"></th>
+                <th><input type="text" class="patient_fam" id="patient_fam" placeholder="Фамилия"></th>
+            </tr>
+            <tr>
+                <th>Комментарии:</th>
+                <th colspan="2"><textarea id="description" cols="30" rows="10"></textarea></th>
+                <th></th>
+            </tr>
+        </tbody>
+    </table>
+
+
     <br>
-    pat<input type="text" class="patient_name" id="patient_name">
-    <input type="text" class="patient_fam" id="patient_fam">
+
+
     <br>
-    <textarea id="description" cols="30" rows="10"></textarea>
-    <button class="create_note" onclick="create_note()">Создать</button>
+
+    <button class="create_note" onclick="create_note()">Создать запись</button>
 
     <script type="text/javascript" src="{% static 'js/create.js' %}"></script>
 {% endblock %}

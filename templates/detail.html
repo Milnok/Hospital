@@ -2,10 +2,25 @@
 {% load static %}
 
 {% block content %}
-    <input type="text" class="doctor" id="doctor" readonly>
-    <input type="text" class="patient" id="patient" readonly>
-    <input type="text" class="note_id" id="note_id" readonly hidden>
-    <textarea id="description" cols="30" rows="10"></textarea>
+    <table>
+        <tbody>
+            <tr>
+                <th>Доктор</th>
+                <th><input type="text" class="doctor" id="doctor" readonly></th>
+            </tr>
+            <tr>
+                <th>Пациент</th>
+                <th><input type="text" class="patient" id="patient" readonly></th>
+            </tr>
+            <tr>
+                <th>Комментарии</th>
+                <th><textarea id="description" cols="30" rows="10"></textarea></th>
+                <th><input type="text" class="note_id" id="note_id" readonly hidden></th>
+            </tr>
+        </tbody>
+    </table>
+
+
     <button class="update_note" onclick="update()">Обновить</button>
 
     <script type="text/javascript" src="{% static 'js/detail.js' %}"></script>

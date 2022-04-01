@@ -8,7 +8,7 @@ from api.serializers import NoteSerializer, CreateNoteSerializer
 
 
 class CheckLogin(ListAPIView):
-    def post(self, *args, **kwargs):
+    def get(self, *args, **kwargs):
         if self.request.user.is_anonymous:
             return JsonResponse({'login': None})
         if not self.request.user.is_anonymous:
@@ -54,7 +54,7 @@ class DeleteNote(DestroyAPIView):
         if Note.objects.filter(doctor=self.request.user.id):
             return Note.objects.all()
         else:
-            return Note.objects.filter(patient=self.request.user.id)
+            return None
 
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -72,7 +72,7 @@ class UpdateNote(UpdateAPIView):
         if Note.objects.filter(doctor=self.request.user.id):
             return Note.objects.all()
         else:
-            return Note.objects.filter(patient=self.request.user.id)
+            return None
 
 
 class CreateNote(CreateAPIView):
@@ -85,7 +85,7 @@ class CreateNote(CreateAPIView):
         except Doctor.DoesNotExist:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
         serializer = self.get_serializer(data=request.data)
-        serializer.is_valid()
+        serializer.is_valid(raise_exception=True)
         data = serializer.data
         try:
             patient = Patient.objects.get(first_name=data['patient']['first_name'],

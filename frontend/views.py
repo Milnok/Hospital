@@ -13,5 +13,6 @@ class LoginView(TemplateView):
 class DetailView(TemplateView):
     template_name = 'detail.html'
 
+
 class CreateView(TemplateView):
     template_name = 'create.html'
