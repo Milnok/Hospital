@@ -16,8 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from api.views import NoteList, CheckLogin, DeleteNote, UpdateNote, NoteById, CreateNode
-from frontend.views import IndexView, LoginView, DetailView
+from api.views import NoteList, CheckLogin, DeleteNote, UpdateNote, NoteById, CreateNote
+from frontend.views import IndexView, LoginView, DetailView, CreateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,14 +25,15 @@ urlpatterns = [
     path('auth/', include('djoser.urls.authtoken')),
     path('auth/', include('djoser.urls.jwt')),
 
-    path('api/v1/get_nodes', NoteList.as_view()),
-    path('api/v1/get_node_by_id', NoteById.as_view()),
+    path('api/v1/get_notes', NoteList.as_view()),
+    path('api/v1/get_note_by_id', NoteById.as_view()),
     path('api/v1/check_login', CheckLogin.as_view()),
-    path('api/v1/create_node', CreateNode.as_view()),
-    path('api/v1/delete_node/<int:id>', DeleteNote.as_view()),
+    path('api/v1/create_note', CreateNote.as_view()),
+    path('api/v1/delete_note/<int:id>', DeleteNote.as_view()),
     path('api/v1/update_note/<int:id>', UpdateNote.as_view()),
 
     path('', IndexView.as_view()),
     path('login/', LoginView.as_view()),
     path('detail/', DetailView.as_view()),
+    path('create/', CreateView.as_view()),
 ]

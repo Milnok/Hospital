@@ -1,7 +1,7 @@
 function get_node_list() {
     $.ajax({
         type: "GET",
-        url: '/api/v1/get_nodes',
+        url: '/api/v1/get_notes',
         headers: {
             "Authorization": "Token " + localStorage.webtoken
         },
@@ -17,7 +17,7 @@ function get_node_list() {
 function delete_note(id) {
     $.ajax({
         type: "DELETE",
-        url: '/api/v1/delete_node/' + id.toString(),
+        url: '/api/v1/delete_note/' + id.toString(),
         headers: {
             "Authorization": "Token " + localStorage.webtoken
         },
@@ -33,7 +33,7 @@ function delete_note(id) {
 function update(id) {
     $.ajax({
         type: "GET",
-        url: 'api/v1/get_node_by_id',
+        url: 'api/v1/get_note_by_id',
         headers: {
             "Authorization": "Token " + localStorage.webtoken
         },

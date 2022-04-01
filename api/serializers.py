@@ -1,3 +1,5 @@
+from abc import ABC
+
 from rest_framework import serializers
 from api.models import Note, Doctor, Patient
 
@@ -21,3 +23,8 @@ class NoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Note
         fields = ('doctor', 'patient', 'description', 'id')
+
+
+class CreateNoteSerializer(serializers.Serializer):
+    class Meta:
+        fields = ('doctor_name', 'doctor_fam', 'patient_name', 'patient_fam', 'description')

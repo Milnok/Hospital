@@ -4,7 +4,7 @@ from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, 
 from rest_framework.response import Response
 
 from api.models import Note, Doctor, Patient
-from api.serializers import NoteSerializer
+from api.serializers import NoteSerializer, CreateNoteSerializer
 
 
 class CheckLogin(ListAPIView):
@@ -71,6 +71,27 @@ class UpdateNote(UpdateAPIView):
             return Note.objects.filter(patient=self.request.user.id)
 
 
-class CreateNode(CreateAPIView):
-    serializer_class = NoteSerializer
-    permission_classes = [permissions.IsAuthenticated]
+class CreateNote(CreateAPIView):
+    serializer_class = CreateNoteSerializer
+
+    # permission_classes = [permissions.IsAuthenticated]
+
+    def create(self, request, *args, **kwargs):
+        print(request.data)
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid()
+        data = serializer.data
+        print(data)
+        try:
+            patient = Patient.objects.get(first_name=data['first_name'],
+                                          last_name=data['last_name'])
+        except Patient.DoesNotExist:
+            return Response('Patient', status=status.HTTP_404_NOT_FOUND)
+        try:
+            doctor = Doctor.objects.get(first_name=data['first_name'],
+                                        last_name=data['last_name'])
+        except Doctor.DoesNotExist:
+            return Response('Doctor', status=status.HTTP_404_NOT_FOUND)
+        Note.objects.create(doctor=doctor.id, patient=patient.id, description=data['description'])
+
+        return Response(status=status.HTTP_204_NO_CONTENT)
