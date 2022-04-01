@@ -75,5 +75,7 @@ function update_table(response) {
     $('#myTable tbody').html(c.join(""));
 }
 
-check_login();
-get_node_list()
+window.onload = function (){
+    check_login();
+    get_node_list()
+}

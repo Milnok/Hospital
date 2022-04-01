@@ -22,7 +22,9 @@ function update() {
     });
 }
 
-
+window.onload = function (){
+    check_login();
+}
 // localStorage.removeItem('doctor')
 // localStorage.removeItem('patient')
 // localStorage.removeItem('id')

@@ -18,4 +18,6 @@ function auth_request() {
     });
 }
 
-
+window.onload = function (){
+    check_login();
+}

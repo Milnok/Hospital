@@ -20,3 +20,9 @@ function create_note() {
         },
     });
 }
+
+window.onload = function () {
+    check_login();
+    document.getElementById('doctor_name').value = localStorage.login_first
+    document.getElementById('doctor_fam').value = localStorage.login_last
+}

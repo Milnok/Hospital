@@ -14,9 +14,13 @@ class CheckLogin(ListAPIView):
         if not self.request.user.is_anonymous:
             try:
                 Patient.objects.get(username=self.request.user.username)
-                return JsonResponse({'login': self.request.user.username, 'type': 'Patient'})
+                return JsonResponse(
+                    {'login_first': self.request.user.first_name, 'login_last': self.request.user.last_name,
+                     'type': 'Patient'})
             except Patient.DoesNotExist:
-                return JsonResponse({'login': self.request.user.username, 'type': 'Doctor'})
+                return JsonResponse(
+                    {'login_first': self.request.user.first_name, 'login_last': self.request.user.last_name,
+                     'type': 'Doctor'})
 
 
 class NoteList(ListAPIView):
