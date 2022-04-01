@@ -3,7 +3,7 @@ from rest_framework import permissions, status
 from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, UpdateAPIView
 from rest_framework.response import Response
 
-from api.models import Note, Doctor, Patient
+from api.models import Note, Doctor, Patient, Audit
 from api.serializers import NoteSerializer, CreateNoteSerializer
 
 
@@ -60,6 +60,7 @@ class DeleteNote(DestroyAPIView):
         instance = self.get_object()
         instance.active = False
         instance.save()
+        Audit.objects.create(user=self.request.user.username, table='Note', action='Удаление')
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
@@ -73,6 +74,11 @@ class UpdateNote(UpdateAPIView):
             return Note.objects.all()
         else:
             return None
+
+    def partial_update(self, request, *args, **kwargs):
+        ret = super(UpdateAPIView, self).partial_update(request, *args, **kwargs)
+        Audit.objects.create(user=self.request.user.username, table='Note', action='Удаление')
+        return ret
 
 
 class CreateNote(CreateAPIView):
@@ -98,5 +104,5 @@ class CreateNote(CreateAPIView):
         except Doctor.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
         Note.objects.create(doctor=doctor, patient=patient, description=data['description'])
-
+        Audit.objects.create(user=self.request.user.username, table='Note', action='Создание')
         return Response(status=status.HTTP_204_NO_CONTENT)
