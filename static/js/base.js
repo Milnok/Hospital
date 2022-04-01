@@ -11,8 +11,14 @@ function check_login() {
         success: function (response) {
             localStorage.login = response['login']
             localStorage.logintype = response['type']
+            document.getElementById('a_username').innerHTML  = response['login']
             document.getElementById('login_page').style.display = 'none'
             document.getElementById('quit').style.display = ''
+            if (response['type'] === 'Doctor') {
+                document.getElementById('create_note').style.display = ''
+            } else {
+                document.getElementById('create_note').style.display = 'none'
+            }
         },
         error: function (response) {
             localStorage.webtoken = null
@@ -20,6 +26,7 @@ function check_login() {
             localStorage.logintype = null
             document.getElementById('login_page').style.display = ''
             document.getElementById('quit').style.display = 'none'
+            document.getElementById('create_note').style.display = 'none'
         },
     });
 }

@@ -72,26 +72,27 @@ class UpdateNote(UpdateAPIView):
 
 
 class CreateNote(CreateAPIView):
-    serializer_class = CreateNoteSerializer
-
-    # permission_classes = [permissions.IsAuthenticated]
+    serializer_class = NoteSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
-        print(request.data)
+        try:
+            Doctor.objects.get(username=self.request.user.username)
+        except Doctor.DoesNotExist:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid()
         data = serializer.data
-        print(data)
         try:
-            patient = Patient.objects.get(first_name=data['first_name'],
-                                          last_name=data['last_name'])
+            patient = Patient.objects.get(first_name=data['patient']['first_name'],
+                                          last_name=data['patient']['last_name'])
         except Patient.DoesNotExist:
-            return Response('Patient', status=status.HTTP_404_NOT_FOUND)
+            return Response(status=status.HTTP_404_NOT_FOUND)
         try:
-            doctor = Doctor.objects.get(first_name=data['first_name'],
-                                        last_name=data['last_name'])
+            doctor = Doctor.objects.get(first_name=data['doctor']['first_name'],
+                                        last_name=data['doctor']['last_name'])
         except Doctor.DoesNotExist:
-            return Response('Doctor', status=status.HTTP_404_NOT_FOUND)
-        Note.objects.create(doctor=doctor.id, patient=patient.id, description=data['description'])
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        Note.objects.create(doctor=doctor, patient=patient, description=data['description'])
 
         return Response(status=status.HTTP_204_NO_CONTENT)
