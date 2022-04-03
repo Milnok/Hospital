@@ -4,5 +4,10 @@
 
 .table {
     margin-top: 10px;
+    margin-right: 50px;
     border: 1px solid black;
+}
+
+.tables{
+    display: flex;
 }

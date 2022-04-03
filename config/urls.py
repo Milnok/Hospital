@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from api.views import NoteList, CheckLogin, DeleteNote, UpdateNote, NoteById, CreateNote
+from api.views import NoteList, CheckLogin, DeleteNote, UpdateNote, NoteById, CreateNote, TimeTableList
 from frontend.views import IndexView, LoginView, DetailView, CreateView
 
 urlpatterns = [
@@ -27,6 +27,7 @@ urlpatterns = [
 
     path('api/v1/get_notes', NoteList.as_view()),
     path('api/v1/get_note_by_id', NoteById.as_view()),
+    path('api/v1/get_timetable', TimeTableList.as_view()),
     path('api/v1/check_login', CheckLogin.as_view()),
     path('api/v1/create_note', CreateNote.as_view()),
     path('api/v1/delete_note/<int:id>', DeleteNote.as_view()),

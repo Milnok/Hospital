@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from api.models import Doctor, Patient, Note, Audit
+from api.models import Doctor, Patient, Note, Audit, Timetable
 
 
 @admin.register(Doctor)
@@ -38,3 +38,4 @@ class CustomPatientAdmin(UserAdmin):
 
 admin.site.register(Note)
 admin.site.register(Audit)
+admin.site.register(Timetable)

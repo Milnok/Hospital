@@ -1,4 +1,3 @@
-
 """
 Django settings for config project.
 
@@ -136,6 +135,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+    'DATETIME_FORMAT': "%m/%d/%Y %H:%M",
 }
 
 DJOSER = {

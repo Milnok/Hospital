@@ -3,13 +3,23 @@
 <link rel="stylesheet" href="{% static 'css/index.css' %}">
 {% block content %}
     <br>
-    <a href="/create/" class="create" id="create_note"><button>Создать запись</button></a>
+    <a href="/create/" class="create" id="create_note">
+        <button>Создать запись</button>
+    </a>
     <br>
-    <table class="table" id="myTable">
-        <tbody>
-        {% for row in table %}
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="tables">
+        <table class="table" id="myTable">
+            <tbody>
+            {% for row in table %}
+            {% endfor %}
+            </tbody>
+        </table>
+        <table class="table" id="myTimetable">
+            <tbody>
+            {% for row in table %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
     <script type="text/javascript" src="{% static 'js/index.js' %}"></script>
 {% endblock %}

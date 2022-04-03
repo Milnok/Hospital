@@ -1,7 +1,5 @@
-from abc import ABC
-
 from rest_framework import serializers
-from api.models import Note, Doctor, Patient
+from api.models import Note, Doctor, Patient, Timetable
 
 
 class DoctorSerializer(serializers.ModelSerializer):
@@ -25,6 +23,19 @@ class NoteSerializer(serializers.ModelSerializer):
         fields = ('doctor', 'patient', 'description', 'id')
 
 
-class CreateNoteSerializer(serializers.Serializer):
+class TimeTableSerializer(serializers.ModelSerializer):
+    doctor = DoctorSerializer()
+
     class Meta:
-        fields = ('doctor_name', 'doctor_fam', 'patient_name', 'patient_fam', 'description')
+        model = Timetable
+        fields = '__all__'
+        extra_kwargs = {'monday_start': {'format': '%H:%M'},
+                        'monday_end': {'format': '%H:%M'},
+                        'tuesday_start': {'format': '%H:%M'},
+                        'tuesday_end': {'format': '%H:%M'},
+                        'wednesday_start': {'format': '%H:%M'},
+                        'wednesday_end': {'format': '%H:%M'},
+                        'thursday_start': {'format': '%H:%M'},
+                        'thursday_end': {'format': '%H:%M'},
+                        'friday_start': {'format': '%H:%M'},
+                        'friday_end': {'format': '%H:%M'}}

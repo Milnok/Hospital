@@ -3,8 +3,8 @@ from rest_framework import permissions, status
 from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, UpdateAPIView
 from rest_framework.response import Response
 
-from api.models import Note, Doctor, Patient, Audit
-from api.serializers import NoteSerializer, CreateNoteSerializer
+from api.models import Note, Doctor, Patient, Audit, Timetable
+from api.serializers import NoteSerializer, TimeTableSerializer
 
 
 class CheckLogin(ListAPIView):
@@ -106,3 +106,9 @@ class CreateNote(CreateAPIView):
         Note.objects.create(doctor=doctor, patient=patient, description=data['description'])
         Audit.objects.create(user=self.request.user.username, table='Note', action='Создание')
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class TimeTableList(ListAPIView):
+    serializer_class = TimeTableSerializer
+    queryset = Timetable.objects.all()
+
