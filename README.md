@@ -5,6 +5,12 @@
 
 Заходим в консоль, переходим в папку с проектом
 
+Создаем виртуальное окружение: `python -m venv venv`
+
+Активируем виртуальное окружение: `venv\scripts\activate`
+
+Устанавливаем пакеты: `pip install -r requirements.txt`
+
 Создаем миграции: `python manage.py makemigrations`
 
 Создаем базу данных: `python manage.py migrate`
